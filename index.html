@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			td{width: 100px;text-align: center;border: 1px solid;}
+		</style>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		姓名:<input type="text" /><br />
+		性别:<input type="text" /><br />
+		年龄:<input type="text" /><br />
+		<button>添加</button>
+		<button>清空</button>
+		<button>查询</button>
+		<input type="text" />
+		<table>
+			<tr>
+				<td>
+					全选<input type="checkbox" id="cheAll" />
+				</td>
+				<td>姓名</td>
+				<td>性别</td>
+				<td>年龄</td>
+				<td>操作</td>
+			</tr>
+		</table>
+		<button>删除选中</button>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//添加
+				$("button:first").click(function(){
+//					var $tr = $("<tr></tr>")
+//					var $td1 = $("<td></td>");
+//					$td1.append("<input type='checkbox'>")
+//					var $td2 = $("<td class='us'></td>");
+//					$td2.append($("input:eq(0)").val())
+//					var $td3 = $("<td></td>");
+//					$td3.append($("input:eq(1)").val())
+//					var $td4 = $("<td></td>");
+//					$td4.append($("input:eq(2)").val())
+//					var $td5 = $("<td></td>");
+//					$td5.append("<button>删除</button>");
+					$("table").append("<tr>\
+					<td><input type='checkbox'></td>\
+					<td class='us'>"+$("input:eq(0)").val()+"</td>\
+					<td>"+$("input:eq(1)").val()+"</td>\
+					<td>"+$("input:eq(2)").val()+"</td>\
+					<td><button>删除</button></td>\
+					</tr>");
+					//单行删除
+					$("td").find("button").click(function(){
+						$(this).parent().parent().remove();
+						changeColor();
+					});
+//					$tr.append($td1,$td2,$td3,$td4,$td5)
+//					$("table").append($tr);
+				changeColor()
+				});
+				
+				//清空
+				$("button:eq(1)").click(function(){
+					$("tr:gt(0)").remove();
+				});
+				
+				//全选
+				$("tr:first input").click(function(){
+					$("input:checkbox").attr("checked",$("#cheAll")[0].checked);
+				});
+				
+				//查询
+				$("button:eq(2)").click(function(){
+					$("tr:gt(0)").css({display:"none"});
+					$(".us:contains("+$("input:eq(3)").val()+")").parent().css({display:"table-row"});
+					changeColor();
+				});
+				
+				//隔行变色
+				function changeColor(){
+					$("tr").css({background:"white"});
+					$("tr:visible:even").css({background:"red"});
+				}
+				changeColor();
+				
+				//删除选中
+				$("button:eq(3)").click(function(){
+					$("input:checked[id!='cheAll']").parent().parent().remove();
+					changeColor();
+				});
+				
+			});
+		</script>
+	</body>
+</html>
